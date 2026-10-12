@@ -1,0 +1,46 @@
+@keyframes pulse{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.6;transform:scale(1.1)}
+}
+
+@keyframes pageIn{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes dash-flow{to{stroke-dashoffset:-40}}
+.wire-animated{stroke-dasharray:8 6;animation:dash-flow 1s linear infinite}
+
+@keyframes led-glow{
+  0%,100%{filter:drop-shadow(0 0 8px var(--success))}
+  50%{filter:drop-shadow(0 0 22px var(--success))}
+}
+.led.on{animation:led-glow 1.2s ease-in-out infinite}
+
+@keyframes score-pop{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.35);color:var(--success)}
+  100%{transform:scale(1)}
+}
+.score-pop{animation:score-pop .5s ease}
+
+@keyframes confetti-fall{
+  0%{transform:translateY(-20px) rotate(0);opacity:1}
+  100%{transform:translateY(260px) rotate(720deg);opacity:0}
+}
+.confetti{
+  position:fixed;width:10px;height:10px;
+  animation:confetti-fall 2s ease-in forwards;
+  z-index:9999;pointer-events:none;
+}
+
+@keyframes fade-in{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.fade-in{animation:fade-in .5s ease}
+
+@keyframes glow-ring{
+  0%,100%{box-shadow:0 0 20px rgba(0,217,255,.3)}
+  50%{box-shadow:0 0 40px rgba(0,217,255,.6)}
+}
