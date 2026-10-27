@@ -21,7 +21,6 @@
 
         <canvas id="particles"></canvas>
 
-        <!-- ================= SIDEBAR ================= -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-logo">
                 <span class="logo-icon"></span>
@@ -29,7 +28,6 @@
             </div>
 
             <nav class="sidebar-nav">
-                <div class="nav-section">MAIN</div>
                 <a href="#dashboard" class="nav-item active"
                     data-page="dashboard"><span>▣</span> Dashboard</a>
                 <a href="#simulator" class="nav-item"
@@ -44,41 +42,40 @@
         </aside>
 
         <header class="topbar">
-            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation"
+            <button class="menu-toggle" id="menuToggle"
+                aria-label="Toggle navigation"
                 aria-controls="sidebar" aria-expanded="false">☰</button>
             <div class="breadcrumbs" id="breadcrumbs">Dashboard</div>
             <div class="topbar-right">
-                <span class="workspace-indicator"><span></span> LOGIC WORKSPACE</span>
+                <span class="workspace-indicator"><span></span> LOGIC
+                    WORKSPACE</span>
             </div>
         </header>
 
-        <!-- ================= MAIN ================= -->
         <main class="main" id="main">
-
-            <!-- ---------- DASHBOARD ---------- -->
             <section class="page active" id="page-dashboard">
-                <div class="dashboard-heading">
+                
+                <div class="dashboard-heading" style="align-items: center;">
                     <div>
-                        <div class="hero-tag">DIGITAL LOGIC / WORKSPACE</div>
+                        <div class="hero-tag" style="color: var(--primary); margin-bottom: 8px;">WELCOME TO LOGICLAB</div>
                         <h1>Think in gates.<br><span class="gradient">Build what works.</span></h1>
-                        <p>Explore logic, test signals, and turn a Boolean idea into a working circuit.</p>
                     </div>
-                    <button class="btn btn-primary" onclick="Router.go('builder')">
-                        <span aria-hidden="true">＋</span> New circuit
+                    <button class="btn btn-primary" onclick="Router.go('builder')" style="padding: 14px 28px; font-size: 1rem;">
+                        <span aria-hidden="true">＋</span> Start New Circuit
                     </button>
                 </div>
 
-                <div class="dashboard-overview">
+                <div class="dashboard-overview" style="margin-bottom: 32px;">
+                    
                     <section class="dashboard-feature" aria-labelledby="feature-title">
                         <div class="feature-copy">
-                            <span class="feature-kicker">LIVE DEMO</span>
-                            <h2 id="feature-title">Test a logic gate</h2>
-                            <p>Change the inputs and see the output update instantly.</p>
+                            <span class="feature-kicker">QUICK SIMULATOR</span>
+                            <h2 id="feature-title">Test a Logic Gate</h2>
                             <button class="text-action" onclick="Router.go('simulator')">
-                                Open simulator <span aria-hidden="true">↗</span>
+                                Open Simulator <span aria-hidden="true">→</span>
                             </button>
                         </div>
-                        <div class="logic-preview" aria-label="Diagram of two inputs connected to an AND gate and output">
+                        <div class="logic-preview" aria-label="AND gate preview">
                             <div class="preview-inputs"><span>A</span><span>B</span></div>
                             <div class="preview-wire preview-wire-a"></div>
                             <div class="preview-wire preview-wire-b"></div>
@@ -88,68 +85,28 @@
                         </div>
                     </section>
 
-                    <aside class="dashboard-snapshot" aria-label="Workspace summary">
-                        <div class="snapshot-heading"><span>WORKSPACE</span><span class="snapshot-live">READY</span></div>
+                    <aside class="dashboard-snapshot" aria-label="Workspace summary" style="background: linear-gradient(160deg, #fffefa, #f6f1df);">
+                        <div class="snapshot-heading">
+                            <span>WORKSPACE STATUS</span>
+                            <span class="snapshot-live">ONLINE</span>
+                        </div>
                         <div class="snapshot-metric">
                             <strong id="statCircuits">0</strong>
-                            <span>Circuits saved</span>
-                            <span class="metric-mark" aria-hidden="true">↗</span>
+                            <span>Circuits Saved</span>
                         </div>
                         <div class="snapshot-divider"></div>
-                        <div class="snapshot-detail"><span>Logic gates</span><strong>07</strong></div>
-                        <div class="snapshot-detail"><span>Variables per table</span><strong>04</strong></div>
-                        <p class="snapshot-note">Your circuits are stored in this browser.</p>
+                        <div class="snapshot-detail"><span>Available Gates</span><strong>07</strong></div>
+                        <div class="snapshot-detail"><span>Max Variables</span><strong>04</strong></div>
+                        <p class="snapshot-note" style="margin-top: 15px;">
+                            <span aria-hidden="true">💡</span> Tip: Use the Builder to drag & drop gates.
+                        </p>
                     </aside>
                 </div>
-
-                <section class="dashboard-tools" aria-labelledby="tools-title">
-                    <div class="section-heading">
-                        <div><span class="section-kicker">YOUR TOOLKIT</span><h2 id="tools-title">Choose a workspace</h2></div>
-                        <span class="section-count">04 TOOLS</span>
-                    </div>
-                    <div class="tool-grid">
-                        <button class="tool-item" onclick="Router.go('simulator')">
-                            <span class="tool-index">01</span><span class="tool-icon tool-icon-lime">⌁</span>
-                            <span class="tool-copy"><strong>Gate simulator</strong><small>Test seven logic operations</small></span>
-                            <span class="tool-arrow" aria-hidden="true">↗</span>
-                        </button>
-                        <button class="tool-item" onclick="Router.go('builder')">
-                            <span class="tool-index">02</span><span class="tool-icon tool-icon-coral">⌘</span>
-                            <span class="tool-copy"><strong>Circuit builder</strong><small>Connect gates and inspect outputs</small></span>
-                            <span class="tool-arrow" aria-hidden="true">↗</span>
-                        </button>
-                        <button class="tool-item" onclick="Router.go('truth')">
-                            <span class="tool-index">03</span><span class="tool-icon tool-icon-blue">▦</span>
-                            <span class="tool-copy"><strong>Truth tables</strong><small>Evaluate expressions across inputs</small></span>
-                            <span class="tool-arrow" aria-hidden="true">↗</span>
-                        </button>
-                        <button class="tool-item" onclick="Router.go('boolean')">
-                            <span class="tool-index">04</span><span class="tool-icon tool-icon-yellow">ƒ</span>
-                            <span class="tool-copy"><strong>Boolean algebra</strong><small>Review laws and simplify logic</small></span>
-                            <span class="tool-arrow" aria-hidden="true">↗</span>
-                        </button>
-                    </div>
-                </section>
-
-                <section class="saved-circuit" id="savedCircuit" aria-live="polite">
-                    <div class="saved-mark" aria-hidden="true">⌘</div>
-                    <div class="saved-copy">
-                        <span class="section-kicker">PICK UP WHERE YOU LEFT OFF</span>
-                        <h2 id="savedCircuitTitle">No saved circuit yet</h2>
-                        <p id="savedCircuitMeta">Create a circuit and save it to keep it here.</p>
-                    </div>
-                    <button class="btn btn-ghost" id="openSavedCircuit" hidden>
-                        Open saved circuit <span aria-hidden="true">→</span>
-                    </button>
                 </section>
             </section>
 
-            <!-- ---------- SIMULATOR ---------- -->
             <section class="page" id="page-simulator">
                 <h1 class="page-title">⚡ Gate Simulator</h1>
-                <p class="page-sub">Select a gate, toggle inputs, watch the
-                    output live.</p>
-
                 <div class="sim-layout">
                     <div class="panel">
                         <h3>SELECT GATE</h3>
@@ -219,47 +176,46 @@
                 </div>
             </section>
 
-            <!-- ---------- CIRCUIT BUILDER ---------- -->
             <section class="page" id="page-builder">
                 <h1 class="page-title">🧩 Circuit Builder</h1>
-                <p class="page-sub">Add gates to the canvas, connect them,
-                    and simulate live.</p>
-
                 <div class="builder-layout">
                     <div class="builder-toolbar">
                         <h4>GATES</h4>
                         <div class="palette" id="palette">
-                            <button class="palette-item" type="button" draggable="true"
+                            <button class="palette-item" type="button"
+                                draggable="true"
                                 data-type="INPUT">IN</button>
-                            <button class="palette-item" type="button" draggable="true"
+                            <button class="palette-item" type="button"
+                                draggable="true"
                                 data-type="OUTPUT">OUT</button>
-                            <button class="palette-item" type="button" draggable="true"
+                            <button class="palette-item" type="button"
+                                draggable="true"
                                 data-type="AND">AND</button>
-                            <button class="palette-item" type="button" draggable="true"
+                            <button class="palette-item" type="button"
+                                draggable="true"
                                 data-type="OR">OR</button>
-                            <button class="palette-item" type="button" draggable="true"
+                            <button class="palette-item" type="button"
+                                draggable="true"
                                 data-type="NOT">NOT</button>
-                            <button class="palette-item" type="button" draggable="true"
+                            <button class="palette-item" type="button"
+                                draggable="true"
                                 data-type="NAND">NAND</button>
-                            <button class="palette-item" type="button" draggable="true"
+                            <button class="palette-item" type="button"
+                                draggable="true"
                                 data-type="NOR">NOR</button>
-                            <button class="palette-item" type="button" draggable="true"
+                            <button class="palette-item" type="button"
+                                draggable="true"
                                 data-type="XOR">XOR</button>
-                            <button class="palette-item" type="button" draggable="true"
+                            <button class="palette-item" type="button"
+                                draggable="true"
                                 data-type="XNOR">XNOR</button>
                         </div>
 
-                        <h4 style="margin-top:16px">HOW TO USE</h4>
-                        <ul class="builder-hints">
-                            <li>🖱 <b>Click or drag</b> a gate from the palette to add it</li>
-                            <li>🔗 <b>Click & drag</b> from a port to
-                                connect</li>
-                            <li>🔵 <b>Click</b> INPUT to toggle 0/1</li>
-                            <li>🗑 <b>Delete key</b> removes selected node</li>
-                            <li>💾 <b>Save</b> to persist circuit locally</li>
-                        </ul>
-
                         <div class="toolbar-actions">
+                            <button class="btn btn-sm btn-ghost" id="btnUndo"
+                                title="Ctrl+Z" disabled>↶ Undo</button>
+                            <button class="btn btn-sm btn-ghost" id="btnRedo"
+                                title="Ctrl+Y" disabled>↷ Redo</button>
                             <button class="btn btn-sm btn-ghost"
                                 id="btnClear">🗑 Clear</button>
                             <button class="btn btn-sm btn-ghost" id="btnLoad">📂
@@ -275,6 +231,19 @@
                         <svg id="builderCanvas" class="builder-canvas"
                             viewBox="0 0 900 600"
                             preserveAspectRatio="xMidYMid meet"></svg>
+
+                        <div class="zoom-controls">
+                            <button id="btnZoomOut" type="button"
+                                title="Zoom out">−</button>
+                            <span id="zoomLabel">100%</span>
+                            <button id="btnZoomIn" type="button"
+                                title="Zoom in">+</button>
+                            <button id="btnZoomReset" type="button"
+                                title="Reset view">⌂</button>
+                        </div>
+
+                        <div id="autosaveIndicator"
+                            class="autosave-indicator"></div>
                     </div>
                 </div>
 
@@ -291,12 +260,8 @@
                 </div>
             </section>
 
-            <!-- ---------- TRUTH TABLES ---------- -->
             <section class="page" id="page-truth">
                 <h1 class="page-title">📊 Truth Table Generator</h1>
-                <p class="page-sub">Choose number of variables and a function —
-                    get the table instantly.</p>
-
                 <div class="panel">
                     <h3>VARIABLES</h3>
                     <div class="gate-selector" id="varSelector">
@@ -322,27 +287,36 @@
                 </div>
             </section>
 
-            <!-- ---------- BOOLEAN ---------- -->
             <section class="page" id="page-boolean">
                 <h1 class="page-title">🧮 Boolean Algebra</h1>
-                <p class="page-sub">Laws, identities and interactive
-                    simplifier.</p>
-
-                <div class="laws-grid" id="lawsGrid"></div>
-
-                <div class="panel full">
-                    <h3>SIMPLIFIER</h3>
-                    <input class="text-input" id="boolInput"
-                        placeholder="e.g. A·A + A·B + A·C" />
-                    <button class="btn btn-primary btn-sm" id="btnSimplify"
-                        style="margin-top:12px">Simplify</button>
+                <div class="panel full" style="margin-bottom: 32px; border-color: rgba(95, 145, 51, 0.3); background: linear-gradient(180deg, rgba(95, 145, 51, 0.03), transparent);">
+                    <h3>⚡ EXPRESSION SIMPLIFIER</h3>
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <input class="text-input" id="boolInput" style="flex: 1; min-width: 250px;" placeholder="Enter expression..." />
+                        <button class="btn btn-primary" id="btnSimplify" style="padding: 12px 32px;">Simplify</button>
+                    </div>
                     <div class="expr-result" id="simplifyResult"></div>
                 </div>
+
+                <h3 class="block-title">📖 LAWS & IDENTITIES</h3>
+                <div class="laws-grid" id="lawsGrid"></div>
             </section>
 
         </main>
-
-        <!-- ================= SCRIPTS ================= -->
+        <div id="restoreModal" class="modal-overlay hidden">
+            <div class="modal">
+                <h2>استعادة المسودة</h2>
+                <p class="modal-sub" id="restoreModalMsg">لقد وجدنا مسودة
+                    تلقائية محفوظة. هل تريد استعادتها؟</p>
+                <div
+                    style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
+                    <button id="btnRestoreYes" class="btn btn-primary">نعم،
+                        استعدها</button>
+                    <button id="btnRestoreNo"
+                        class="btn btn-ghost">تجاهل</button>
+                </div>
+            </div>
+        </div>
         <script src="js/storage.js"></script>
         <script src="js/router.js"></script>
         <script src="js/simulator.js"></script>

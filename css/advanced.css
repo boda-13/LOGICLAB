@@ -482,3 +482,303 @@ kbd {
 .invisible {
     visibility: hidden
 }
+
+/* ============ ZOOM CONTROLS ============ */
+.zoom-controls {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    background: rgba(255, 254, 248, .95);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(39, 55, 31, .1);
+    z-index: 10;
+}
+
+.zoom-controls button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: .95rem;
+}
+
+.zoom-controls button:hover {
+    background: var(--surface-2);
+}
+
+.zoom-controls span {
+    min-width: 44px;
+    text-align: center;
+    font: 600 .72rem 'JetBrains Mono', monospace;
+    color: var(--text-dim);
+}
+
+/* ============ AUTO-SAVE INDICATOR ============ */
+.autosave-indicator {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    background: rgba(47, 139, 91, .12);
+    border: 1px solid rgba(47, 139, 91, .3);
+    border-radius: 6px;
+    color: var(--success);
+    font: 600 .7rem 'JetBrains Mono', monospace;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity .25s, transform .25s;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.autosave-indicator.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============ UNDO/REDO DISABLED ============ */
+.toolbar-actions .btn:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+}
+
+.builder-canvas-wrap {
+    position: relative;
+}
+
+/* ============ BOOLEAN ALGEBRA POLISH ============ */
+
+/* شكل كارت القانون */
+.law-card {
+    background: #fffefa;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* خط ملون على شمال الكارت */
+.law-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 3px;
+    background: var(--primary);
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.law-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 8px 24px rgba(39, 55, 31, 0.08);
+    transform: translateY(-2px);
+}
+
+.law-card:hover::before {
+    opacity: 1;
+}
+
+.law-card h4 {
+    font-size: 0.85rem;
+    color: var(--primary);
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* شكل المعادلات جوه الكارت */
+.law-card code {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text);
+    margin: 8px 0;
+    padding: 8px 12px;
+    background: var(--surface-2);
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.law-card:hover code {
+    border-color: rgba(95, 145, 51, 0.2);
+    background: #f8f5e9;
+}
+
+.expr-result {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: var(--surface-2);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    color: var(--text);
+    word-break: break-word;
+    transition: all 0.3s ease;
+}
+
+.expr-result:not(:empty) {
+    background: rgba(95, 145, 51, 0.08);
+    border-color: rgba(95, 145, 51, 0.3);
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.15rem;
+    box-shadow: inset 0 2px 10px rgba(95, 145, 51, 0.05);
+}
+
+#boolInput {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    padding: 14px 18px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+
+#boolInput:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(95, 145, 51, 0.1);
+    outline: none;
+}
+/* ============ DASHBOARD POLISH ============ */
+
+/* تحسين المسافات بين الأقسام */
+#page-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* تحسين شكل الـ Tool Cards */
+.tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    border: none !important; /* شيلنا البوردر القديم */
+}
+
+.tool-item {
+    background: #fffefa;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.25s ease;
+}
+
+.tool-item:hover {
+    border-color: var(--primary) !important;
+    background: #f8f5e9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(95, 145, 51, 0.08);
+}
+
+.tool-item:hover .tool-arrow {
+    transform: translate(3px, -3px);
+    color: var(--primary);
+}
+
+.tool-index {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--surface-2);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.tool-icon {
+    font-size: 1.5rem;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(95, 145, 51, 0.08);
+    border-radius: 10px;
+    color: var(--primary);
+}
+
+.tool-copy {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.tool-copy strong {
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-bottom: 2px;
+}
+
+.tool-copy small {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+}
+
+.tool-arrow {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    transition: all 0.2s;
+}
+
+/* تحسين شكل الكارت بتاع آخر Circuit تم حفظه */
+.saved-circuit {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    background: linear-gradient(105deg, #fff8df, #fffefa 80%) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius) !important;
+    margin-top: 32px;
+}
+
+.saved-mark {
+    font-size: 1.8rem;
+    background: rgba(243, 154, 105, 0.15);
+    color: var(--secondary);
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+/* تجاوب الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .dashboard-overview {
+        grid-template-columns: 1fr;
+    }
+    .tool-grid {
+        grid-template-columns: 1fr;
+    }
+    .saved-circuit {
+        flex-direction: column;
+        text-align: center;
+    }
+    #openSavedCircuit {
+        width: 100%;
+    }
+}

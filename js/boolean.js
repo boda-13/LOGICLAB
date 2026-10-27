@@ -95,7 +95,7 @@ function simplifyExpression(input) {
     );
     const score = [selected.length, literalCount];
     if (!best || score[0] < best.score[0] ||
-        (score[0] === best.score[0] && score[1] < best.score[1])) {
+      (score[0] === best.score[0] && score[1] < best.score[1])) {
       best = { selected, score };
     }
   }
@@ -118,7 +118,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const val = document.getElementById('boolInput').value;
       const result = document.getElementById('simplifyResult');
       try {
-        result.textContent = val + '  ⇒  ' + simplifyExpression(val);
+        const simplified = simplifyExpression(val);
+        result.innerHTML = `
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; width: 100%;">
+        <span style="color: var(--text-dim); text-decoration: line-through; opacity: 0.7; font-size: 0.95rem;">${val}</span>
+        <span style="color: var(--secondary); font-size: 1.2rem;">⇒</span>
+        <span style="color: var(--primary);">${simplified}</span>
+    </div>
+`;
       } catch (error) {
         result.textContent = `Invalid expression: ${error.message}`;
       }
