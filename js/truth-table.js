@@ -15,8 +15,8 @@ function renderTruthTable(gate, curA, curB) {
     return;
   }
 
-  const rows = [[0,0],[0,1],[1,0],[1,1]];
-  tbody.innerHTML = rows.map(([a,b]) => {
+  const rows = [[0, 0], [0, 1], [1, 0], [1, 1]];
+  tbody.innerHTML = rows.map(([a, b]) => {
     const out = GATES[gate](a, b);
     const isActive = a === curA && b === curB;
     return `
@@ -40,13 +40,17 @@ function exprToFn(expr, varNames) {
       continue;
     }
 
-    const match = expr.slice(index).match(/^(NAND|NOR|XNOR|AND|OR|XOR|NOT|[A-D]|[01]|[()+·*^⊕↑↓⊙~!])/i);
+    const match = expr.slice(index).match(/^(NAND|NOR|XNOR|AND|OR|XOR|NOT|[A-D]|[01]|[()+¬∑*^⊕↑↓⊙~!&|])/i);
     if (!match) throw new Error(`Unexpected character: ${expr[index]}`);
 
     const raw = match[0].toUpperCase();
     const aliases = {
-      '·': 'AND', '*': 'AND', '+': 'OR', '^': 'XOR', '⊕': 'XOR',
-      '↑': 'NAND', '↓': 'NOR', '⊙': 'XNOR', '~': 'NOT', '!': 'NOT'
+      '·': 'AND', '*': 'AND', '&': 'AND',
+      '+': 'OR', '|': 'OR',
+      '^': 'XOR', '⊕': 'XOR',
+      '↑': 'NAND', '↓': 'NOR',
+      '⊙': 'XNOR',
+      '~': 'NOT', '!': 'NOT', '¬': 'NOT'
     };
     tokens.push(aliases[raw] || raw);
     index += match[0].length;
@@ -133,7 +137,7 @@ function exprToFn(expr, varNames) {
 
 function generateTruthTable() {
   const expr = document.getElementById('truthExpr').value.trim();
-  const varNames = ['A','B','C','D'].slice(0, truthVars);
+  const varNames = ['A', 'B', 'C', 'D'].slice(0, truthVars);
   const output = document.getElementById('truthOutput');
   let fn;
   try {

@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('openSavedCircuit')?.addEventListener('click', () => {
     Router.go('builder');
-    BuilderAdvanced.loadCircuit();
+    if (window.BuilderAdvanced) BuilderAdvanced.loadCircuit();
   });
 
   // Reveal animations
@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.stat-card, .quick-card, .panel, .law-card')
     .forEach(el => observer.observe(el));
 
-  console.log('%c⚡ LogicLab X', 'color:#00D9FF;font-size:26px;font-weight:bold');
-  console.log('%cDigital Logic Suite Ready', 'color:#7C3AED;font-size:12px');
+  console.log('%c⚡ LogicLab X', 'color:#5f9133;font-size:26px;font-weight:bold');
+  console.log('%cDigital Logic Suite Ready', 'color:#c98225;font-size:12px');
 });
 
 function updateDashboardStats() {

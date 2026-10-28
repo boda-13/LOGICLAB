@@ -57,7 +57,7 @@ const BuilderAdvanced = {
 
     svg.addEventListener('pointerdown', e => this.onPointerDown(e));
     svg.addEventListener('pointermove', e => this.onPointerMove(e));
-    svg.addEventListener('pointerup',   e => this.onPointerUp(e));
+    svg.addEventListener('pointerup', e => this.onPointerUp(e));
     window.addEventListener('pointerup', () => {
       if (this.dragging || this.draggingWire) {
         this.dragging = null;
@@ -106,17 +106,17 @@ const BuilderAdvanced = {
 
     const bind = (id, fn) =>
       document.getElementById(id)?.addEventListener('click', fn);
-    bind('btnClear',    () => this.clear());
-    bind('btnSave',     () => this.saveCircuit());
-    bind('btnLoad',     () => this.loadCircuit());
+    bind('btnClear', () => this.clear());
+    bind('btnSave', () => this.saveCircuit());
+    bind('btnLoad', () => this.loadCircuit());
     bind('btnSimulate', () => this.simulate(true));
-    bind('btnUndo',     () => this.undo());
-    bind('btnRedo',     () => this.redo());
-    bind('btnZoomIn',   () => {
+    bind('btnUndo', () => this.undo());
+    bind('btnRedo', () => this.redo());
+    bind('btnZoomIn', () => {
       const r = svg.getBoundingClientRect();
       this.zoomAt(0.8, r.left + r.width / 2, r.top + r.height / 2);
     });
-    bind('btnZoomOut',  () => {
+    bind('btnZoomOut', () => {
       const r = svg.getBoundingClientRect();
       this.zoomAt(1.25, r.left + r.width / 2, r.top + r.height / 2);
     });
@@ -134,7 +134,7 @@ const BuilderAdvanced = {
         e.preventDefault(); this.redo(); return;
       }
       if ((e.key === 'Delete' || e.key === 'Backspace') && !editing
-          && this.selectedNodeIds.size) {
+        && this.selectedNodeIds.size) {
         e.preventDefault(); this.deleteNode(); return;
       }
       if (e.key === 'Escape') {
@@ -167,9 +167,9 @@ const BuilderAdvanced = {
     x = Math.max(0, Math.min(810, Math.round(x / 20) * 20));
     y = Math.max(0, Math.min(540, Math.round(y / 20) * 20));
 
-    const isInput  = type === 'INPUT';
+    const isInput = type === 'INPUT';
     const isOutput = type === 'OUTPUT';
-    const isNot    = type === 'NOT';
+    const isNot = type === 'NOT';
 
     let label = '';
     if (isInput) {
@@ -180,10 +180,10 @@ const BuilderAdvanced = {
     }
 
     let inputs;
-    if (isInput)       inputs = [];
+    if (isInput) inputs = [];
     else if (isOutput) inputs = [null];
-    else if (isNot)    inputs = [null];
-    else               inputs = [null, null];
+    else if (isNot) inputs = [null];
+    else inputs = [null, null];
 
     this.nodes.push({
       id: this.nextNodeId++,
@@ -205,7 +205,7 @@ const BuilderAdvanced = {
         const pos = { x: 30 + col * 120, y: 30 + row * 80 };
         const busy = this.nodes.some(n =>
           pos.x < n.x + 100 && pos.x + 100 > n.x &&
-          pos.y < n.y + 70  && pos.y + 70  > n.y
+          pos.y < n.y + 70 && pos.y + 70 > n.y
         );
         if (!busy) return pos;
       }
@@ -234,9 +234,9 @@ const BuilderAdvanced = {
     this.simulate(true);
   },
 
-   clear() {
-    if (!this.nodes.length) return; 
-    
+  clear() {
+    if (!this.nodes.length) return;
+
     this.nodes = [];
     this.wires = [];
     this.selectedNodeIds.clear();
@@ -245,18 +245,23 @@ const BuilderAdvanced = {
     this._snapshot();
     this._markDirty();
     this.simulate(true);
-    
-    this.toast('🗑️ تم مسح الكل');
+
+    this.toast('🗑️ Cleared');
   },
+
   getNodePorts(node) {
     const ports = [];
-    const isInput  = node.type === 'INPUT';
+    const isInput = node.type === 'INPUT';
     const isOutput = node.type === 'OUTPUT';
-    const isNot    = node.type === 'NOT';
+    const isNot = node.type === 'NOT';
+
+    // مطابقة إحداثيات الرسم
+    const outX = (isInput || isOutput) ? 90 : (isNot ? 76 : 84);
+
     if (!isOutput) {
       ports.push({
         type: 'output',
-        x: node.x + 90,
+        x: node.x + outX,
         y: node.y + 30,
         nodeId: node.id,
         index: 0
@@ -301,7 +306,7 @@ const BuilderAdvanced = {
     if (from.type === targetPort.type) { this.scheduleRender(); return; }
 
     const out = from.type === 'output' ? from : targetPort;
-    const inp = from.type === 'input'  ? from : targetPort;
+    const inp = from.type === 'input' ? from : targetPort;
 
     if (out.nodeId === inp.nodeId) { this.scheduleRender(); return; }
 
@@ -313,7 +318,7 @@ const BuilderAdvanced = {
 
     const dup = this.wires.some(w =>
       w.fromNode === out.nodeId && w.fromPort === out.index &&
-      w.toNode   === inp.nodeId && w.toPort   === inp.index
+      w.toNode === inp.nodeId && w.toPort === inp.index
     );
     if (dup) { this.scheduleRender(); return; }
 
@@ -354,15 +359,17 @@ const BuilderAdvanced = {
   },
 
   onPointerDown(e) {
-    if (e.button === 1) return; 
+    if (e.button === 1) return;
     if (e.button !== 0) return;
+
+    try { this.svg.setPointerCapture(e.pointerId); } catch { }
 
     const deleteBtn = e.target.closest('[data-delete]');
     if (deleteBtn) {
-      e.stopPropagation(); 
+      e.stopPropagation();
       const id = Number(deleteBtn.dataset.delete);
-      this.deleteNode(id);  
-      this.toast('🗑️ تم حذف العنصر');
+      this.deleteNode(id);
+      this.toast('🗑️ Node deleted');
       return;
     }
 
@@ -407,6 +414,7 @@ const BuilderAdvanced = {
     }
     this.scheduleRender();
   },
+
   onPointerMove(e) {
     if (!this.dragging && !this.draggingWire) return;
     const pt = this.getSVGPoint(e);
@@ -510,7 +518,7 @@ const BuilderAdvanced = {
 
     this.wires.forEach(w => {
       const fromNode = this.nodes.find(n => n.id === w.fromNode);
-      const toNode   = this.nodes.find(n => n.id === w.toNode);
+      const toNode = this.nodes.find(n => n.id === w.toNode);
       if (!fromNode || !toNode) return;
 
       const fromPort = this.getNodePorts(fromNode)
@@ -559,9 +567,9 @@ const BuilderAdvanced = {
       const curve = Math.max(60, Math.abs(dx) * 0.7);
       const midY = (y1 + y2) / 2;
       return `M ${x1} ${y1} ` +
-             `C ${x1 + curve} ${y1}, ${x1 + curve} ${midY}, ${(x1 + x2) / 2} ${midY} ` +
-             `S ${x2 - curve} ${midY}, ${x2 - curve} ${y2} ` +
-             `S ${x2 - curve} ${y2}, ${x2} ${y2}`;
+        `C ${x1 + curve} ${y1}, ${x1 + curve} ${midY}, ${(x1 + x2) / 2} ${midY} ` +
+        `S ${x2 - curve} ${midY}, ${x2 - curve} ${y2} ` +
+        `S ${x2 - curve} ${y2}, ${x2} ${y2}`;
     }
 
     const curve = Math.max(40, Math.abs(y2 - y1) * 0.5);
@@ -573,13 +581,13 @@ const BuilderAdvanced = {
     const sw = selected ? 3 : 2;
     const inverted = ['NAND', 'NOR', 'XNOR'].includes(type);
     const base = type === 'NAND' ? 'AND'
-               : type === 'NOR'  ? 'OR'
-               : type === 'XNOR' ? 'XOR' : type;
+      : type === 'NOR' ? 'OR'
+        : type === 'XNOR' ? 'XOR' : type;
 
     let body = '', extra = '';
 
     if (base === 'NOT') {
-      body  = `<path d="M ${x} ${y} L ${x} ${y + 60} L ${x + 66} ${y + 30} Z"/>`;
+      body = `<path d="M ${x} ${y} L ${x} ${y + 60} L ${x + 66} ${y + 30} Z"/>`;
       extra = `<circle cx="${x + 76}" cy="${y + 30}" r="8"/>`;
     } else if (base === 'AND') {
       body = `<path d="M ${x} ${y} H ${x + 40} C ${x + 66} ${y}, ${x + 78} ${y + 12}, ${x + 78} ${y + 30} C ${x + 78} ${y + 48}, ${x + 66} ${y + 60}, ${x + 40} ${y + 60} H ${x} Z"/>`;
@@ -594,13 +602,13 @@ const BuilderAdvanced = {
       <text x="${x + 40}" y="${y + 35}" class="builder-gate-label">${type}</text>`;
   },
 
-   renderNode(node) {
-    const isInput  = node.type === 'INPUT';
+  renderNode(node) {
+    const isInput = node.type === 'INPUT';
     const isOutput = node.type === 'OUTPUT';
     const selected = this.selectedNodeIds.has(node.id);
-    const stroke   = selected ? '#c98225' : '#5f9133';
-    const sw       = selected ? 3 : 2;
-    const parts    = [`<g data-node="${node.id}" style="cursor:move">`];
+    const stroke = selected ? '#c98225' : '#5f9133';
+    const sw = selected ? 3 : 2;
+    const parts = [`<g data-node="${node.id}" style="cursor:move">`];
 
     if (isInput) {
       const on = node.value === 1;
@@ -654,6 +662,7 @@ const BuilderAdvanced = {
     parts.push('</g>');
     return parts.join('');
   },
+
   simulate(forceRender = false) {
     const MAX = this.nodes.length + 1;
     let stable = false;
@@ -677,12 +686,12 @@ const BuilderAdvanced = {
             ins.push(src ? src.output : 0);
           }
           switch (node.type) {
-            case 'NOT':  val = ins[0] ? 0 : 1; break;
-            case 'AND':  val = ins[0] & ins[1]; break;
-            case 'OR':   val = ins[0] | ins[1]; break;
+            case 'NOT': val = ins[0] ? 0 : 1; break;
+            case 'AND': val = ins[0] & ins[1]; break;
+            case 'OR': val = ins[0] | ins[1]; break;
             case 'NAND': val = (ins[0] & ins[1]) ? 0 : 1; break;
-            case 'NOR':  val = (ins[0] | ins[1]) ? 0 : 1; break;
-            case 'XOR':  val = ins[0] ^ ins[1]; break;
+            case 'NOR': val = (ins[0] | ins[1]) ? 0 : 1; break;
+            case 'XOR': val = ins[0] ^ ins[1]; break;
             case 'XNOR': val = (ins[0] ^ ins[1]) ? 0 : 1; break;
           }
         }
@@ -752,60 +761,64 @@ const BuilderAdvanced = {
       return;
     }
 
-    const backup = this.nodes.map(n => ({ id: n.id, value: n.value, output: n.output }));
+    const backup = this.nodes.map(n => ({
+      id: n.id, value: n.value, output: n.output
+    }));
     const rows = [];
     const total = 1 << inputs.length;
 
-    for (let i = 0; i < total; i++) {
-      inputs.forEach((n, k) => {
-        n.value = (i >> (inputs.length - 1 - k)) & 1;
-      });
-
-      const state = new Map();
-      this.nodes.forEach(n => state.set(n.id, n.type === 'INPUT' ? n.value : 0));
-
-      let stable = false;
-      for (let iter = 0; iter <= this.nodes.length && !stable; iter++) {
-        const before = [...state.values()].join(',');
-        this.nodes.forEach(node => {
-          if (node.type === 'INPUT') return;
-          let val = 0;
-          if (node.type === 'OUTPUT') {
-            const w = this.wires.find(w => w.toNode === node.id && w.toPort === 0);
-            val = w ? (state.get(w.fromNode) || 0) : 0;
-          } else {
-            const ins = [];
-            const n = node.type === 'NOT' ? 1 : 2;
-            for (let k = 0; k < n; k++) {
-              const w = this.wires.find(w => w.toNode === node.id && w.toPort === k);
-              ins.push(w ? (state.get(w.fromNode) || 0) : 0);
-            }
-            switch (node.type) {
-              case 'NOT':  val = ins[0] ? 0 : 1; break;
-              case 'AND':  val = ins[0] & ins[1]; break;
-              case 'OR':   val = ins[0] | ins[1]; break;
-              case 'NAND': val = (ins[0] & ins[1]) ? 0 : 1; break;
-              case 'NOR':  val = (ins[0] | ins[1]) ? 0 : 1; break;
-              case 'XOR':  val = ins[0] ^ ins[1]; break;
-              case 'XNOR': val = (ins[0] ^ ins[1]) ? 0 : 1; break;
-            }
-          }
-          state.set(node.id, val);
+    try {
+      for (let i = 0; i < total; i++) {
+        inputs.forEach((n, k) => {
+          n.value = (i >> (inputs.length - 1 - k)) & 1;
         });
-        const after = [...state.values()].join(',');
-        stable = before === after;
-      }
 
-      rows.push({
-        inputs: inputs.map(n => n.value),
-        output: state.get(outNode.id) || 0
+        const state = new Map();
+        this.nodes.forEach(n => state.set(n.id, n.type === 'INPUT' ? n.value : 0));
+
+        let stable = false;
+        for (let iter = 0; iter <= this.nodes.length && !stable; iter++) {
+          const before = [...state.values()].join(',');
+          this.nodes.forEach(node => {
+            if (node.type === 'INPUT') return;
+            let val = 0;
+            if (node.type === 'OUTPUT') {
+              const w = this.wires.find(w => w.toNode === node.id && w.toPort === 0);
+              val = w ? (state.get(w.fromNode) || 0) : 0;
+            } else {
+              const ins = [];
+              const n = node.type === 'NOT' ? 1 : 2;
+              for (let k = 0; k < n; k++) {
+                const w = this.wires.find(w => w.toNode === node.id && w.toPort === k);
+                ins.push(w ? (state.get(w.fromNode) || 0) : 0);
+              }
+              switch (node.type) {
+                case 'NOT': val = ins[0] ? 0 : 1; break;
+                case 'AND': val = ins[0] & ins[1]; break;
+                case 'OR': val = ins[0] | ins[1]; break;
+                case 'NAND': val = (ins[0] & ins[1]) ? 0 : 1; break;
+                case 'NOR': val = (ins[0] | ins[1]) ? 0 : 1; break;
+                case 'XOR': val = ins[0] ^ ins[1]; break;
+                case 'XNOR': val = (ins[0] ^ ins[1]) ? 0 : 1; break;
+              }
+            }
+            state.set(node.id, val);
+          });
+          const after = [...state.values()].join(',');
+          stable = before === after;
+        }
+
+        rows.push({
+          inputs: inputs.map(n => n.value),
+          output: state.get(outNode.id) || 0
+        });
+      }
+    } finally {
+      backup.forEach(b => {
+        const n = this.nodes.find(x => x.id === b.id);
+        if (n) { n.value = b.value; n.output = b.output; }
       });
     }
-
-    backup.forEach(b => {
-      const n = this.nodes.find(x => x.id === b.id);
-      if (n) { n.value = b.value; n.output = b.output; }
-    });
 
     const names = inputs.map(n => n.label || '?');
     container.innerHTML = `
@@ -848,14 +861,14 @@ const BuilderAdvanced = {
   _canRedo() { return this._history.index < this._history.stack.length - 1; },
 
   undo() {
-    if (!this._canUndo()) { this.toast('لا يوجد شيء للتراجع عنه'); return; }
+    if (!this._canUndo()) { this.toast('Nothing to undo'); return; }
     this._history.index--;
     this._restoreSnapshot(this._history.stack[this._history.index]);
     this.toast('↶ Undo');
   },
 
   redo() {
-    if (!this._canRedo()) { this.toast('لا يوجد شيء لإعادته'); return; }
+    if (!this._canRedo()) { this.toast('Nothing to redo'); return; }
     this._history.index++;
     this._restoreSnapshot(this._history.stack[this._history.index]);
     this.toast('↷ Redo');
@@ -889,7 +902,7 @@ const BuilderAdvanced = {
   zoomAt(factor, clientX, clientY) {
     const v = this._view;
     const newW = Math.max(v.minW, Math.min(v.maxW, v.w * factor));
-    if (newW === v.w) return;
+    if (Math.abs(newW - v.w) < 0.5) return;
 
     const rect = this.svg.getBoundingClientRect();
     const px = (clientX - rect.left) / rect.width;
@@ -956,7 +969,7 @@ const BuilderAdvanced = {
   _showAutoSaveIndicator() {
     const el = document.getElementById('autosaveIndicator');
     if (!el) return;
-    el.textContent = '✓ محفوظ تلقائياً';
+    el.textContent = '✓ Auto-saved';
     el.classList.add('visible');
     clearTimeout(this._indicatorTimer);
     this._indicatorTimer = setTimeout(() => {
@@ -978,19 +991,19 @@ const BuilderAdvanced = {
       }
 
       const ago = Math.round((Date.now() - data.timestamp) / 60000);
-      
+
       const modal = document.getElementById('restoreModal');
       const msg = document.getElementById('restoreModalMsg');
       const btnYes = document.getElementById('btnRestoreYes');
       const btnNo = document.getElementById('btnRestoreNo');
 
       if (!modal || !btnYes || !btnNo) {
-        if (!confirm(`استعادة المسودة التلقائية من ${ago} دقيقة؟`)) return;
+        if (!confirm(`Restore auto-saved draft from ${ago} min ago?`)) return;
         this._loadAutoSaveData(data);
         return;
       }
 
-      msg.textContent = `لقد وجدنا مسودة محفوظة تلقائياً منذ ${ago} دقيقة. هل تريد استعادتها؟`;
+      msg.textContent = `We found an auto-saved draft from ${ago} min ago. Restore it?`;
       modal.classList.remove('hidden');
 
       btnYes.onclick = () => {
@@ -1002,7 +1015,7 @@ const BuilderAdvanced = {
         modal.classList.add('hidden');
       };
 
-    } catch (e) {}
+    } catch (e) { }
   },
 
   _loadAutoSaveData(data) {
@@ -1015,8 +1028,9 @@ const BuilderAdvanced = {
     this._snapshot();
     this._markDirty();
     this.simulate(true);
-    this.toast('📂 تم استعادة المسودة');
+    this.toast('📂 Draft restored');
   },
+
   saveCircuit() {
     const data = {
       nodes: this.nodes,
@@ -1062,6 +1076,10 @@ const BuilderAdvanced = {
   },
 
   toast(msg) {
+    // حدّ أقصى 3 toasts لمنع التراكم
+    const existing = document.querySelectorAll('.toast');
+    if (existing.length >= 3) existing[0].remove();
+
     const t = document.createElement('div');
     t.className = 'toast';
     t.textContent = msg;

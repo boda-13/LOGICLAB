@@ -1,13 +1,7 @@
-/* ============================================================
-   LOGICLAB X — ADVANCED STYLES
-   Covers: Modals, Builder, Toasts, Utilities
-   ============================================================ */
-
-/* ============ MODAL ============ */
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, .75);
+    background: rgba(24, 34, 23, .55);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     display: flex;
@@ -22,14 +16,14 @@
     position: relative;
     width: 100%;
     max-width: 420px;
-    background: linear-gradient(180deg, #131826, #0F1422);
+    background: linear-gradient(180deg, #fffefa, #f6f1df);
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 36px 32px;
     text-align: center;
     box-shadow:
-        0 20px 60px rgba(0, 217, 255, .15),
-        0 0 0 1px rgba(0, 217, 255, .05) inset;
+        0 20px 60px rgba(95, 145, 51, .15),
+        0 0 0 1px rgba(95, 145, 51, .05) inset;
     animation: modalIn .35s cubic-bezier(.2, .9, .3, 1.2);
 }
 
@@ -79,7 +73,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, .03);
+    background: rgba(95, 145, 51, .05);
     border: 1px solid var(--border);
     border-radius: 8px;
     color: var(--text-dim);
@@ -93,7 +87,7 @@
 .modal-close:hover {
     color: var(--danger);
     border-color: var(--danger);
-    background: rgba(239, 68, 68, .08);
+    background: rgba(200, 87, 77, .08);
 }
 
 /* ============ BUILDER CANVAS ENHANCEMENTS ============ */
@@ -109,7 +103,7 @@
 }
 
 .builder-canvas [data-node]:hover .gate-body {
-    filter: drop-shadow(0 0 10px rgba(0, 217, 255, .6));
+    filter: drop-shadow(0 0 10px rgba(95, 145, 51, .6));
 }
 
 .builder-canvas circle {
@@ -133,7 +127,7 @@
 
 .builder-hints li {
     padding: 6px 0;
-    border-bottom: 1px dashed rgba(255, 255, 255, .05);
+    border-bottom: 1px dashed rgba(95, 145, 51, .12);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -178,8 +172,8 @@
     border-radius: 12px;
     background: var(--surface);
     border: 1px solid var(--primary);
-    box-shadow: 0 10px 40px rgba(0, 217, 255, .3);
-    font-family: 'Inter', sans-serif;
+    box-shadow: 0 10px 40px rgba(95, 145, 51, .3);
+    font-family: 'DM Sans', sans-serif;
     font-weight: 600;
     font-size: .9rem;
     color: var(--text);
@@ -189,17 +183,17 @@
 
 .toast.success {
     border-color: var(--success);
-    box-shadow: 0 10px 40px rgba(16, 185, 129, .3);
+    box-shadow: 0 10px 40px rgba(47, 139, 91, .3);
 }
 
 .toast.error {
     border-color: var(--danger);
-    box-shadow: 0 10px 40px rgba(239, 68, 68, .3);
+    box-shadow: 0 10px 40px rgba(200, 87, 77, .3);
 }
 
 .toast.warning {
     border-color: var(--warning);
-    box-shadow: 0 10px 40px rgba(245, 158, 11, .3);
+    box-shadow: 0 10px 40px rgba(217, 157, 43, .3);
 }
 
 @keyframes toastIn {
@@ -243,7 +237,7 @@
 
 /* ============ SELECTION ============ */
 ::selection {
-    background: rgba(0, 217, 255, .3);
+    background: rgba(95, 145, 51, .3);
     color: var(--text);
 }
 
@@ -348,18 +342,18 @@ kbd {
 
 /* ============ GLASS CARD ============ */
 .glass {
-    background: rgba(19, 24, 38, .6);
+    background: rgba(255, 254, 248, .7);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, .06);
+    border: 1px solid rgba(95, 145, 51, .12);
 }
 
 /* ============ NEON GLOW ============ */
 .neon-glow {
     box-shadow:
-        0 0 10px rgba(0, 217, 255, .5),
-        0 0 30px rgba(0, 217, 255, .3),
-        0 0 60px rgba(0, 217, 255, .15);
+        0 0 10px rgba(95, 145, 51, .5),
+        0 0 30px rgba(95, 145, 51, .3),
+        0 0 60px rgba(95, 145, 51, .15);
 }
 
 /* ============ SHIMMER ============ */
@@ -389,22 +383,22 @@ kbd {
     height: 10px;
     border-radius: 50%;
     background: var(--success);
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, .7);
+    box-shadow: 0 0 0 0 rgba(47, 139, 91, .7);
     animation: pulseDot 2s infinite;
     display: inline-block;
 }
 
 @keyframes pulseDot {
     0% {
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, .7)
+        box-shadow: 0 0 0 0 rgba(47, 139, 91, .7)
     }
 
     70% {
-        box-shadow: 0 0 0 12px rgba(16, 185, 129, 0)
+        box-shadow: 0 0 0 12px rgba(47, 139, 91, 0)
     }
 
     100% {
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0)
+        box-shadow: 0 0 0 0 rgba(47, 139, 91, 0)
     }
 }
 
@@ -557,7 +551,6 @@ kbd {
 
 /* ============ BOOLEAN ALGEBRA POLISH ============ */
 
-/* شكل كارت القانون */
 .law-card {
     background: #fffefa;
     border: 1px solid var(--border);
@@ -568,11 +561,12 @@ kbd {
     overflow: hidden;
 }
 
-/* خط ملون على شمال الكارت */
 .law-card::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
     width: 3px;
     background: var(--primary);
     opacity: 0.5;
@@ -601,7 +595,6 @@ kbd {
     gap: 8px;
 }
 
-/* شكل المعادلات جوه الكارت */
 .law-card code {
     display: block;
     font-family: 'JetBrains Mono', monospace;
@@ -659,25 +652,22 @@ kbd {
     box-shadow: 0 0 0 4px rgba(95, 145, 51, 0.1);
     outline: none;
 }
-/* ============ DASHBOARD POLISH ============ */
 
-/* تحسين المسافات بين الأقسام */
+/* ============ DASHBOARD POLISH ============ */
 #page-dashboard {
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* تحسين شكل الـ Tool Cards */
 .tool-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 16px;
-    border: none !important; /* شيلنا البوردر القديم */
 }
 
 .tool-item {
     background: #fffefa;
-    border: 1px solid var(--border) !important;
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 16px 20px;
     display: flex;
@@ -687,7 +677,7 @@ kbd {
 }
 
 .tool-item:hover {
-    border-color: var(--primary) !important;
+    border-color: var(--primary);
     background: #f8f5e9;
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(95, 145, 51, 0.08);
@@ -742,21 +732,20 @@ kbd {
     transition: all 0.2s;
 }
 
-/* تحسين شكل الكارت بتاع آخر Circuit تم حفظه */
 .saved-circuit {
     display: flex;
     align-items: center;
     gap: 20px;
     padding: 24px;
-    background: linear-gradient(105deg, #fff8df, #fffefa 80%) !important;
-    border: 1px solid var(--border) !important;
-    border-radius: var(--radius) !important;
+    background: linear-gradient(105deg, #fff8df, #fffefa 80%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
     margin-top: 32px;
 }
 
 .saved-mark {
     font-size: 1.8rem;
-    background: rgba(243, 154, 105, 0.15);
+    background: rgba(201, 130, 37, 0.15);
     color: var(--secondary);
     width: 56px;
     height: 56px;
@@ -766,19 +755,50 @@ kbd {
     border-radius: 12px;
 }
 
-/* تجاوب الشاشات الصغيرة */
+/* ============ SMALL SCREENS ============ */
 @media (max-width: 768px) {
     .dashboard-overview {
         grid-template-columns: 1fr;
     }
+
     .tool-grid {
         grid-template-columns: 1fr;
     }
+
     .saved-circuit {
         flex-direction: column;
         text-align: center;
     }
+
     #openSavedCircuit {
         width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .palette {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .zoom-controls {
+        bottom: 8px;
+        right: 8px;
+        padding: 3px;
+    }
+
+    .zoom-controls button {
+        width: 24px;
+        height: 24px;
+        font-size: .8rem;
+    }
+}
+
+@media (max-width: 360px) {
+
+    .stats-grid,
+    .quick-grid,
+    .tool-grid,
+    .palette {
+        grid-template-columns: minmax(0, 1fr);
     }
 }
